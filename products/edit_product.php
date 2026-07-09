@@ -73,11 +73,7 @@ $product = $result->fetch_assoc();
 
         <div id="paint_fields">
             <label>Brand:</label><br>
-            <select name="brand">
-                <option value="Brighto" <?php if ($product['brand']=='Brighto') echo 'selected'; ?>>Brighto</option>
-                <option value="Andrew" <?php if ($product['brand']=='Andrew') echo 'selected'; ?>>Andrew</option>
-                <option value="Buxson" <?php if ($product['brand']=='Buxson') echo 'selected'; ?>>Buxson</option>
-            </select><br><br>
+            <input type="text" name="brand" value="<?php echo $product['brand']; ?>" placeholder="e.g. Brighto, Nippon, Master, etc."><br><br>
 
             <label>Paint Type:</label><br>
             <input type="text" name="paint_type" value="<?php echo $product['paint_type']; ?>"><br><br>
