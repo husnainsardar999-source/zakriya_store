@@ -1,3 +1,4 @@
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
 <div class="sidebar">
     <div class="brand">
         <div class="brand-mark"></div>
