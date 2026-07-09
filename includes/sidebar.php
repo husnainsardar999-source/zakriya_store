@@ -28,6 +28,9 @@
     <strong>Reports</strong>
     <a href="<?php echo $base; ?>reports/reports.php">Reports</a>
 
+    <strong>Profit</strong>
+    <a href="<?php echo $base; ?>profit/profit.php">Profit Report</a>
+
     <strong>Settings</strong>
     <a href="<?php echo $base; ?>settings/settings.php">Settings</a>
 
