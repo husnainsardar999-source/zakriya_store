@@ -81,7 +81,10 @@ $result = $conn->query("SELECT * FROM bills WHERE $where ORDER BY bill_date DESC
                     <td><?php echo $row['phone_number'] ? $row['phone_number'] : '-'; ?></td>
                     <td><?php echo $row['bill_date']; ?></td>
                     <td><?php echo $row['grand_total']; ?></td>
-                    <td><a href="../billing/print_bill.php?id=<?php echo $row['id']; ?>">View / Reprint</a></td>
+                    <td>
+                        <a href="../billing/print_bill.php?id=<?php echo $row['id']; ?>">View / Reprint</a> |
+                        <a href="../billing/delete_bill.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Delete this bill? This will also restore the stock for its items.')">Delete</a>
+                    </td>
                 </tr>
             <?php } ?>
         </table>
