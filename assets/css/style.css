@@ -81,12 +81,29 @@ a { color: var(--teal-dark); text-decoration: none; }
   font-size: 13.5px;
   font-weight: 500;
   margin-bottom: 2px;
+  position: relative;
+  padding-left: 26px;
 }
 
 .sidebar a:hover {
   background: rgba(255,255,255,0.08);
   color: #fff;
 }
+
+.sidebar a::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 3px;
+  background: var(--teal);
+}
+.sidebar a:nth-child(3n+1)::before { background: var(--brick); }
+.sidebar a:nth-child(3n+2)::before { background: var(--teal); }
+.sidebar a:nth-child(3n)::before { background: var(--amber); }
 
 /* ---------- Main content ---------- */
 .main-content {
@@ -307,23 +324,6 @@ body.login-page {
   text-transform: uppercase;
 }
 
-/* ---------- Sidebar dot bullets ---------- */
-.sidebar a { position: relative; padding-left: 26px; }
-.sidebar a::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  border-radius: 3px;
-  background: var(--teal);
-}
-.sidebar a:nth-child(3n+1)::before { background: var(--brick); }
-.sidebar a:nth-child(3n+2)::before { background: var(--teal); }
-.sidebar a:nth-child(3n)::before { background: var(--amber); }
-
 /* ---------- Sidebar footer ---------- */
 .sidebar-footer {
   margin-top: 30px;
@@ -364,3 +364,93 @@ body.login-page {
 }
 .topbar h2 { margin: 0; font-size: 20px; }
 .topbar .date-badge { font-size: 12.5px; color: var(--ink-soft); }
+
+/* ---------- Mobile Menu Toggle ---------- */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 1000;
+  background: var(--charcoal);
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ---------- Responsive (Mobile) ---------- */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 70px 16px 30px;
+  }
+
+  .topbar {
+    margin: -70px -16px 20px;
+    padding: 16px 16px 16px 64px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .topbar h2 {
+    font-size: 17px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .card .value {
+    font-size: 20px;
+  }
+
+  form {
+    max-width: 100%;
+  }
+
+  .panel {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  .login-box {
+    max-width: 90%;
+    padding: 28px 22px;
+  }
+
+  div[style*="display:flex"][style*="gap:20px"] {
+    flex-direction: column;
+  }
+}
