@@ -20,6 +20,31 @@ if ($period == 'weekly') {
     $title = "Daily Profit Report (Today)";
 }
 
+// Handle "Clear All" for this period
+if (isset($_GET['clear_all'])) {
+    $conn->query("
+        UPDATE bill_items bi
+        JOIN bills b ON bi.bill_id = b.id
+        SET bi.profit_cleared = 1
+        WHERE $dateCondition
+    ");
+    header("Location: profit.php?period=$period");
+    exit();
+}
+
+// Handle clearing a single product description for this period
+if (isset($_GET['clear_product'])) {
+    $desc = $conn->real_escape_string($_GET['clear_product']);
+    $conn->query("
+        UPDATE bill_items bi
+        JOIN bills b ON bi.bill_id = b.id
+        SET bi.profit_cleared = 1
+        WHERE $dateCondition AND bi.product_description = '$desc'
+    ");
+    header("Location: profit.php?period=$period");
+    exit();
+}
+
 $sql = "
     SELECT
         bi.product_description,
@@ -31,7 +56,7 @@ $sql = "
     FROM bill_items bi
     JOIN bills b ON bi.bill_id = b.id
     JOIN products p ON bi.product_id = p.id
-    WHERE $dateCondition
+    WHERE $dateCondition AND bi.profit_cleared = 0
     GROUP BY bi.product_description, p.purchase_price
     ORDER BY total_profit DESC
 ";
@@ -72,12 +97,20 @@ function tabBtn($p, $current, $label) {
         <div class="date-badge"><?php echo date("l, j F Y"); ?></div>
     </div>
 
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;">
-        <?php
-        tabBtn('daily', $period, 'Daily');
-        tabBtn('weekly', $period, 'Weekly');
-        tabBtn('monthly', $period, 'Monthly');
-        ?>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:24px;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <?php
+            tabBtn('daily', $period, 'Daily');
+            tabBtn('weekly', $period, 'Weekly');
+            tabBtn('monthly', $period, 'Monthly');
+            ?>
+        </div>
+
+        <?php if (count($rows) > 0) { ?>
+            <a href="profit.php?period=<?php echo $period; ?>&clear_all=1" onclick="return confirm('Clear ALL profit entries for this period? This will hide them from this report (your bills and stock are not affected).')">
+                <button type="button" style="margin-top:0; background:var(--teal);">Clear All</button>
+            </a>
+        <?php } ?>
     </div>
 
     <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin-bottom:24px;">
@@ -111,10 +144,11 @@ function tabBtn($p, $current, $label) {
                 <th>Revenue</th>
                 <th>Cost</th>
                 <th>Profit</th>
+                <th>Action</th>
             </tr>
 
             <?php if (count($rows) == 0) { ?>
-                <tr><td colspan="6" style="text-align:center; color:var(--ink-soft);">No sales in this period.</td></tr>
+                <tr><td colspan="7" style="text-align:center; color:var(--ink-soft);">No sales in this period.</td></tr>
             <?php } ?>
 
             <?php foreach ($rows as $row) { ?>
@@ -126,6 +160,9 @@ function tabBtn($p, $current, $label) {
                     <td><?php echo number_format($row['total_cost'], 2); ?></td>
                     <td style="color:<?php echo $row['total_profit'] >= 0 ? '#0B534E' : '#B02A2A'; ?>; font-weight:600;">
                         <?php echo number_format($row['total_profit'], 2); ?>
+                    </td>
+                    <td>
+                        <a href="profit.php?period=<?php echo $period; ?>&clear_product=<?php echo urlencode($row['product_description']); ?>" onclick="return confirm('Clear this product from the profit report?')">Clear</a>
                     </td>
                 </tr>
             <?php } ?>
