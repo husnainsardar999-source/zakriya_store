@@ -40,7 +40,6 @@ h2 {
 
 a { color: var(--teal-dark); text-decoration: none; }
 
-/* ---------- Sidebar ---------- */
 .sidebar {
   float: left;
   width: 236px;
@@ -105,13 +104,11 @@ a { color: var(--teal-dark); text-decoration: none; }
 .sidebar a:nth-child(3n+2)::before { background: var(--teal); }
 .sidebar a:nth-child(3n)::before { background: var(--amber); }
 
-/* ---------- Main content ---------- */
 .main-content {
   margin-left: 260px;
   padding: 30px;
 }
 
-/* ---------- Cards (Dashboard) ---------- */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -151,7 +148,6 @@ a { color: var(--teal-dark); text-decoration: none; }
   color: var(--charcoal);
 }
 
-/* ---------- Panels / Tables ---------- */
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -188,7 +184,6 @@ table td {
 
 table tr:hover { background: #FCFAF6; }
 
-/* ---------- Status Pills ---------- */
 .pill {
   display: inline-block;
   padding: 3px 10px;
@@ -201,7 +196,6 @@ table tr:hover { background: #FCFAF6; }
 .pill-warn { background: #FBF0DE; color: #8A5410; }
 .pill-danger { background: #FBEBE8; color: var(--danger); }
 
-/* ---------- Forms ---------- */
 form {
   background: var(--surface);
   padding: 22px;
@@ -242,7 +236,6 @@ input:focus, select:focus {
   border-color: var(--teal);
 }
 
-/* ---------- Buttons ---------- */
 button, input[type="submit"] {
   background: var(--brick);
   color: #fff;
@@ -257,7 +250,6 @@ button, input[type="submit"] {
 
 button:hover { background: var(--brick-dark); }
 
-/* ---------- Login Page ---------- */
 body.login-page {
   height: 100vh;
   display: flex;
@@ -293,7 +285,6 @@ body.login-page {
   font-family: 'Inter', sans-serif;
 }
 
-/* ---------- Brand / Logo ---------- */
 .brand {
   display: flex;
   align-items: center;
@@ -324,7 +315,6 @@ body.login-page {
   text-transform: uppercase;
 }
 
-/* ---------- Sidebar footer ---------- */
 .sidebar-footer {
   margin-top: 30px;
   padding: 14px 8px 4px;
@@ -352,7 +342,6 @@ body.login-page {
 }
 .logout-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
-/* ---------- Topbar ---------- */
 .topbar {
   display: flex;
   align-items: center;
@@ -365,7 +354,6 @@ body.login-page {
 .topbar h2 { margin: 0; font-size: 20px; }
 .topbar .date-badge { font-size: 12.5px; color: var(--ink-soft); }
 
-/* ---------- Mobile Menu Toggle ---------- */
 .mobile-toggle {
   display: none;
   position: fixed;
@@ -382,7 +370,6 @@ body.login-page {
   cursor: pointer;
 }
 
-/* ---------- Responsive (Mobile) ---------- */
 @media (max-width: 768px) {
   .mobile-toggle {
     display: block;
@@ -393,15 +380,53 @@ body.login-page {
     top: 0;
     left: 0;
     height: 100vh;
-    width: 240px;
+    width: 260px;
     z-index: 999;
     transform: translateX(-100%);
     transition: transform 0.25s ease;
     overflow-y: auto;
+    padding: 24px 16px;
   }
 
   .sidebar.open {
     transform: translateX(0);
+  }
+
+  .sidebar a {
+    font-size: 16px;
+    padding: 12px 14px;
+    padding-left: 30px;
+    margin-bottom: 4px;
+  }
+
+  .sidebar a::before {
+    left: 14px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .sidebar strong {
+    font-size: 12px;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    padding: 0 14px;
+  }
+
+  .sidebar h3, .brand-text {
+    font-size: 16px;
+  }
+
+  .brand-text span {
+    font-size: 11px;
+  }
+
+  .sidebar-footer .who {
+    font-size: 13px;
+  }
+
+  .logout-btn {
+    font-size: 14px;
+    padding: 11px;
   }
 
   .main-content {
