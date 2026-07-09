@@ -73,11 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div id="paint_fields" style="display:none;">
             <label>Brand:</label><br>
-            <select name="brand">
-                <option value="Brighto">Brighto</option>
-                <option value="Andrew">Andrew</option>
-                <option value="Buxson">Buxson</option>
-            </select><br><br>
+            <input type="text" name="brand" placeholder="e.g. Brighto, Nippon, Master, etc."><br><br>
 
             <label>Paint Type:</label><br>
             <input type="text" name="paint_type"><br><br>
