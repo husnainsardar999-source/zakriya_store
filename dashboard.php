@@ -24,6 +24,7 @@ $out_of_stock = $conn->query("SELECT COUNT(*) AS total FROM products WHERE stock
 <html>
 <head>
     <title>Dashboard - Zakriya Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
